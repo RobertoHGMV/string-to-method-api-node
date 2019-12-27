@@ -23,7 +23,7 @@ module.exports = {
         }
     },
 
-    async getBy(req, res) {
+    async getByKey(req, res) {
         try {
             const { rep_id } = req.params;
             

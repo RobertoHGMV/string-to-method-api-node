@@ -23,7 +23,7 @@ module.exports = {
 
     async getByKey(req, res) {
         try {
-            const { user_id } = req.headers;
+            const { user_id } = req.query;
 
             const user = await UserRepository.getByKey(user_id);
 

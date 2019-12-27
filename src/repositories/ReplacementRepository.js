@@ -5,12 +5,12 @@ module.exports = {
         return await Replacement.create(replacement);
     },
 
-    async update() {
-        
+    async update(replacement) {
+        await Replacement.updateOne(replacement);
     },
 
     async getByKey(rep_id) {
-        return await Replacement.find({ _id: rep_id });
+        return await Replacement.findById(rep_id);
     },
 
     async getBy(user_id) {

@@ -14,13 +14,15 @@ module.exports = {
     },
 
     async add(fullWords, method, user_id) {
-        const replacement = RepRepository.getBy(user_id);
-
+        let replacement = await RepRepository.getBy(user_id);
+        
+        const words = this.replaceWords(fullWords, method);
+        
         if (replacement) {
-            replacement = await RepRepository.update();
+            await RepRepository.update({ _id: replacement._id, fullWords, method, words });
+            replacement = await RepRepository.getByKey(replacement._id);
         }
         else {
-            const words = this.replaceWords(fullWords, method);
             replacement = await RepRepository.add({ fullWords, method, words, user: user_id });
         }
         
