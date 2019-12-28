@@ -15,5 +15,13 @@ module.exports = {
 
     async getAll() {
         return await User.find({}, 'login');
+    },
+
+    async update(user) {
+        await User.updateOne(user);
+    },
+
+    async delete(user) {
+        await User.deleteOne(user);
     }
 };

@@ -43,5 +43,32 @@ module.exports = {
         catch (e) {
             return res.status(500).send({ error: 'Falha ao buscar usuários' });
         }
+    },
+
+    async update(req, res) {
+        try {
+            const { user_id } = req.headers;
+            const { login } = req.body;
+            
+            const user = await UserService.update(user_id, login);
+
+            return res.status(200).json(user);
+        }
+        catch(e) {
+            return res.status(500).send({ error: e });
+        }
+    },
+
+    async delete(req, res) {
+        try {
+            const { user_id } = req.headers;
+
+            await UserService.delete(user_id);
+
+            return res.status(204).json({ msg: 'Operação realizada com sucesso' });
+        }
+        catch(e) {
+            return res.status(500).send({ error: e });
+        }
     }
 };

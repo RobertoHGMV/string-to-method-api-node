@@ -11,5 +11,11 @@ module.exports = {
         routes.post('/v1/users', 
         check('login').isLength({ min: 3, max: 10 }).withMessage('Login deve possuir de 3 a 10 caracteres'),
         UserController.add);
+
+        routes.put('/v1/users',
+        check('login').isLength({ min: 3, max: 10 }).withMessage('Login deve possuir de 3 a 10 caracteres'),
+        UserController.update);
+
+        routes.delete('/v1/users', UserController.delete);
     }
 };

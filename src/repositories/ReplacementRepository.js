@@ -9,8 +9,14 @@ module.exports = {
         await Replacement.updateOne(replacement);
     },
 
+    async delete(replacement) {
+        await Replacement.deleteOne(replacement);
+    },
+
     async getByKey(rep_id) {
-        return await Replacement.findById(rep_id);
+        replacement = await Replacement.findById(rep_id);
+        await replacement.populate('user').execPopulate();
+        return replacement;
     },
 
     async getBy(user_id) {
