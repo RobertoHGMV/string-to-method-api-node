@@ -7,8 +7,12 @@ async function deleteReplacement(user_id) {
 };
 
 module.exports = {
+    async getBy(login) {
+        return await UserRepository.getBy(login);
+    },
+
     async add(login) {
-        let user = await UserRepository.getBy(login);
+        let user = this.getBy(login);
 
         if (!user)
             user = await UserRepository.add({ login });

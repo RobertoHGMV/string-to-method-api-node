@@ -2,6 +2,7 @@ const { validationResult } = require('express-validator');
 
 const UserService = require('../services/UserService');
 const UserRepository = require('../repositories/UserRepository');
+const ReplacementRep = require('../repositories/ReplacementRepository');
 
 module.exports = {
     async add(req, res) {
@@ -23,13 +24,26 @@ module.exports = {
 
     async getByKey(req, res) {
         try {
-            const { user_id } = req.query;
+            const { user_id } = req.params;
 
             const user = await UserRepository.getByKey(user_id);
 
             return res.status(200).json(user);
         }
         catch (e) {
+            return res.status(500).send({ error: 'Falha ao buscar usuário' });
+        }
+    },
+
+    async getBy(req, res) {
+        try {
+            const { login } = req.query;
+
+            const user = await UserRepository.getBy(login);
+
+            return res.status(200).json(user);
+        }
+        catch(e) {
             return res.status(500).send({ error: 'Falha ao buscar usuário' });
         }
     },
@@ -42,6 +56,19 @@ module.exports = {
         }
         catch (e) {
             return res.status(500).send({ error: 'Falha ao buscar usuários' });
+        }
+    },
+
+    async getReplacement(req, res) {
+        try {
+            const { user_id } = req.params;
+
+            const replacement = await ReplacementRep.getBy(user_id);
+
+            return res.status(200).json(replacement);
+        }
+        catch(e) {
+            return res.status(500).send({ error: 'Falha ao carregar substituição' })
         }
     },
 
